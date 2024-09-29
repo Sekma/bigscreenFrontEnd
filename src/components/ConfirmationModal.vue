@@ -3,19 +3,23 @@
       <div class="confirmation text-center text-white form-group m-auto p-5 w-50">
         <p>{{ message }}</p>
         <p v-if="emailError" class="messageError">{{ emailError }}</p>
+        <input type="text" v-model="name" placeholder="Entrez votre nom" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" required/>
         <input type="email" v-model="email" placeholder="Entrez votre email" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" required/>
-        <button @click="confirm" :disabled="!email" class="btn btn-primary mt-4 w-50 text-white rounded-pill fw-bold">Confirmer</button>
+        <button @click="confirm" :disabled="!email || !name" class="btn btn-primary mt-4 w-50 text-white rounded-pill fw-bold">Confirmer</button>
         <button @click="cancel" class="btn btn-primary mt-4 ms-2 w-25 text-white rounded-pill fw-bold">Annuler</button>
       </div>
     </div>
   </template>
   
   <script>
+  import axios from "axios";
+
   export default {
     data() {
       return {
         isVisible: false,
         message: '',
+        name: '',
         email: '',
         emailError: '',
         onConfirm: null,
@@ -27,6 +31,7 @@
       show(message, callback) {
         this.message = message;
         this.email = ''; // Réinitialiser l'email
+        this.name = ''; // Réinitialiser le nom
         this.onConfirm = callback;
         this.isVisible = true; // Afficher le modal
       },
@@ -43,11 +48,28 @@
     // confirmer         
       confirm() {
         if (this.validateEmail()){ // si le format email est valider
-            this.isVisible = false; // Cacher le modal
-            if (this.onConfirm) {
-                localStorage.setItem('userEmail', this.email); // Stocker l'email
-                this.onConfirm(this.email); // Appeler le callback avec l'email
-            }
+
+                // stocker les données de formulaire dans la base de données à travers l'api
+                axios.post("http://localhost:8000/api/visitor", {
+                name: this.name,
+                email: this.email
+                })
+                .then((response) => {
+                    
+                    this.isVisible = false; // Cacher le modal
+                    if (this.onConfirm) {
+                        localStorage.setItem('userEmail', this.email); // Stocker l'email
+                        this.onConfirm(this.email); // Appeler le callback avec l'email
+                    }
+                    alert(response.data.message);
+                })
+                .catch((error) => {
+                    this.email= ''
+                    alert(error.response.data.message);
+                });
+            
+        }else{
+            this.email= ''
         }
       },
       // fermer
