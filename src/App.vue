@@ -1,11 +1,14 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const isAdminRoute = computed(() => route.path.startsWith('/admin'));
 </script>
 
 <template>
   <div>
-    <nav class="p-4">
+    <nav v-if="!isAdminRoute" class="p-4">
       <img class="logo" src="/src/assets/logo.png" alt="logo" width="220px">
       <RouterLink class="link" to="/">Home</RouterLink>
       <RouterLink class="link" to="/survey">Questionnaire</RouterLink>
@@ -16,7 +19,7 @@ import HelloWorld from './components/HelloWorld.vue'
   </div>
 </template>
 
-<style>
+<style scoped>
 
 nav {
   font-size: 12px;

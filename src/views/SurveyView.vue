@@ -76,7 +76,7 @@ export default {
     fetchData() {
       axios.get('http://127.0.0.1:8000/api/question')
         .then(response => {
-          this.responseData = response.data.questions;
+          this.responseData = response.data.message;
           // Initialiser formData pour chaque question
           this.responseData.forEach(item => {
             this.$set(this.formData, item.id, ''); // S'assurez que chaque champ est initialisé

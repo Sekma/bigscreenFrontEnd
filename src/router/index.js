@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AdminView from '../views/admin/AdminView.vue'
 import SurveyView from '@/views/SurveyView.vue'
 import AnswersView from '@/views/AnswersView.vue'
+import AdminLayout from '../views/admin/AdminLayout.vue';
+import AdminView from '../views/admin/AdminView.vue';
+import AdminQuestionsView from '@/views/admin/AdminQuestionsView.vue';
+import AdminAnswersView from '@/views/admin/AdminAnswersView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,11 +43,26 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      name: 'admin',
-      
-      component: AdminView,
-      meta: { requiresAuth: true }  // Marquer cette route comme nécessitant une authentification.
-    }
+      component: AdminLayout, // Utilisez le nouveau layout
+      meta: { requiresAuth: true },
+      children: [
+        {
+          path: '',
+          name: 'admin',
+          component: AdminView,
+        },
+        {
+          path: '/admin/questions',
+          name: 'admin-questions',
+          component: AdminQuestionsView
+        },
+        {
+          path: '/admin/answers',
+          name: 'admin-answers',
+          component: AdminAnswersView
+        }
+      ],
+    },
   ]
 })
 router.beforeEach((to, from, next) => {
