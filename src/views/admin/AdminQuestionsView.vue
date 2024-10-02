@@ -6,8 +6,8 @@
     </div>
     <div v-else class="data-table d-flex justify-content-between mt-1 text-center">
       <div class="m-auto">
-        <h4 class="bg-light p-2">La liste des questions</h4>
-        <table class="table table-striped border table-bordered">
+        <h4 class="p-2 text-decoration-underline">La liste des questions</h4>
+        <table class="table table-striped border table-bordered shadow-sm mt-5">
           <thead>
             <tr class="table-primary">
               <th class="fw-bold">N°/20</th>
@@ -19,7 +19,7 @@
             <tr v-for="row in responseData" :key="row.id">
               <td>{{ row.id }}/20</td>
               <td>{{ row.question }}</td>
-              <td>{{ row.type }}</td>
+              <td>{{ row.type.toUpperCase() }}</td>
             </tr>
           </tbody>
         </table>

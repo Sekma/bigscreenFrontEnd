@@ -17,15 +17,15 @@
                     réponses que vous avez apportées à 
                     notre sondage <br>le : <strong>{{ findDate }}</strong></p>
 
-                    <div v-for="item in responseData" :key="item.question_id" class="form-group border p-3 my-4 rounded" style="background-color:#dee2e6">
+                    <div v-for="item in responseData" :key="item.question_id" class="form-group border p-3 my-4 rounded shadow-sm" style="background-color:#dee2e6">
                         <p><strong>Question {{item.question_id}}/20 : </strong><br>{{ item.question }}</p>
                         <div style="border: 1px dashed black" class="p-3">
                             {{ item.answer }}
                         </div>
                     </div>
                     <div class="text-end">
-                        <button @click="generatePdf" class="btn btn-primary mt-4">Télécharger l'URL en PDF</button>
-                        <button @click="returnHome" class="btn btn-outline-danger ms-4 mt-4">Fermer</button>
+                        <button @click="generatePdf" class="btn btn-primary mt-4 shadow-sm">Télécharger l'URL en PDF</button>
+                        <button @click="returnHome" class="btn btn-outline-danger ms-4 mt-4 shadow-sm">Fermer</button>
                     </div>
                     
                 </div>

@@ -12,7 +12,7 @@
 
       <form class="w-50 m-auto" style="min-width:500px" @submit.prevent="handleSubmit">
         <template v-for="(item, index) in responseData" :key="item.id">
-          <div class="form-group border p-3 my-4 rounded" style="background-color:#dee2e6" v-if="item.type === 'a'">
+          <div class="form-group border p-3 my-4 rounded shadow-sm" style="background-color:#dee2e6" v-if="item.type === 'a'">
             <p><strong>Question: {{ item.id }}/20 : </strong><br> {{ item.question }}</p>
             <div style="border: 1px dashed black" class="p-3">
               <div v-for="choice in JSON.parse(item.choices)" :key="choice" class="form-check">
@@ -21,18 +21,18 @@
               </div>
             </div>
           </div>
-          <div class="form-group border p-3 my-4 rounded" style="background-color:#dee2e6" v-else-if="item.type === 'c'">
+          <div class="form-group border p-3 my-4 rounded shadow-sm" style="background-color:#dee2e6" v-else-if="item.type === 'c'">
             <label :for="'input' + item.id"><strong>Question: {{ item.id }}/20 : </strong><br> {{ item.question }}</label>
             <input type="number" min="0" max="5" class="form-control mt-3" :id="'input' + item.id" v-model="formData[item.id]" required/>
           </div>
-          <div class="form-group border p-3 my-4 rounded" style="background-color:#dee2e6" v-else>
+          <div class="form-group border p-3 my-4 rounded shadow-sm" style="background-color:#dee2e6" v-else>
             <label :for="'input' + item.id"><strong>Question: {{ item.id }}/20 : </strong><br> {{ item.question }}</label>
             <input class="form-control mt-3" :id="'input' + item.id" v-model="formData[item.id]" :readonly="item.id === 1" required/>
           </div>
         </template>
         <div class="text-end">
-          <button class="btn btn-outline-primary me-3" type="submit">Finaliser</button>
-          <button @click="resetForm(this.email)" class="btn btn-outline-danger" type="reset">Reset</button>
+          <button class="btn btn-outline-primary me-3 shadow-sm" type="submit">Finaliser</button>
+          <button @click="resetForm(this.email)" class="btn btn-outline-danger shadow-sm" type="reset">Reset</button>
         </div>
       </form>
     </div>

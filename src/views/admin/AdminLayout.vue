@@ -54,12 +54,15 @@
   
   .nav-link {
     text-decoration: none;
+    font-weight: bold;
   }
   
   .nav-link:hover {
-    background-color: #f8f9fa; /* Changement de couleur au survol */
+    background-color: #f8f9fa;
   }
-  
+  nav a.router-link-exact-active {
+    background-color: #f8f9fa9f;
+  }
   .logo {
     text-align: center; /* Centrer le logo */
   }

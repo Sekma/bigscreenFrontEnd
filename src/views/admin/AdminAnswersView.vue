@@ -6,10 +6,10 @@
     </div>
     <div v-else class="data-table d-flex justify-content-between mt-1 text-center">
       <div class="m-auto">
-        <h4 class="bg-light p-2">La liste des réponses par sondé</h4>
+        <h4 class="bg-light p-2 text-decoration-underline">La liste des réponses par sondé</h4>
         <div v-for="(responses, visitorId) in groupedResponses" :key="visitorId" class="mb-4">
-          <h5>Sondé : {{ responses[0].visitor }}</h5>
-          <table class="table table-striped border">
+          <h5 class=" text-start mt-5">Sondé : {{ responses[0].visitor }}</h5>
+          <table class="table table-striped border table-bordered shadow-sm">
             <thead>
               <tr class="table-primary">
                 <th class="fw-bold">N° Question</th>
