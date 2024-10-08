@@ -37,7 +37,7 @@ import axios from "axios";
 export default {
   data() { 
     return {
-      responseData: [], // Remplacez ici si nécessaire
+      responseData: [],
       groupedResponses: {}
     };
   },
@@ -45,7 +45,7 @@ export default {
     fetchData() {
       axios.get('http://127.0.0.1:8000/api/admin_answer')
         .then(response => {
-          this.responseData = response.data.message; // Utiliser le même nom
+          this.responseData = response.data.message; 
           this.groupResponsesByVisitor();
         })
         .catch(error => {
@@ -68,7 +68,3 @@ export default {
   }
 }
 </script>
-
-<style>
-/* Ajoutez vos styles ici si nécessaire */
-</style>

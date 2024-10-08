@@ -1,10 +1,15 @@
 <template>
     <div v-if="isVisible" class="modal-overlay">
-      <div class="confirmation text-center text-white form-group m-auto p-5 w-50">
-        <p>{{ message }}</p>
-        <p v-if="emailError" class="messageError">{{ emailError }}</p>
-        <input type="text" v-model="name" placeholder="Entrez votre nom" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" required/>
-        <input type="email" v-model="email" placeholder="Entrez votre email" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" required/>
+      <div class="confirmation text-start text-white form-group m-auto p-5 w-50">
+        <p class="text-center">{{ message }}</p>
+        <p class="text-center messageError" v-if="emailError">{{ emailError }}</p>
+        <div>
+          <label for="inputName">Nom</label>
+          <input id="inputName" type="text" v-model="name" placeholder="Entrez votre nom" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" required/>
+          <label class="mt-3" for="inputEmail">Adresse Email</label>
+          <input id="inputEmail" type="email" v-model="email" placeholder="Entrez votre email" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" required/>
+          <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre adresse e-mail avec qui que ce soit.</small>
+        </div>
         <button @click="confirm" :disabled="!email || !name" class="btn btn-primary mt-4 w-50 text-white rounded-pill fw-bold">Confirmer</button>
         <button @click="cancel" class="btn btn-primary mt-4 ms-2 w-25 text-white rounded-pill fw-bold">Annuler</button>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="row p-2">
-    <h4 class="text-center p-2 text-decoration-underline">Les statistiques du sondage</h4>
+    <h4 class="text-center p-2 text-decoration-underline">Les statistiques du sondage : {{responseData}}</h4>
     <div class="col-6 p-5">
       <p>Marques de casques VR utilisées par les sondés.</p>
       <Pie class="shadow p-3" :data="data" :options="options" />
@@ -20,7 +20,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import axios from "axios";
+
 import {
   Chart as ChartJS,
   Title,
@@ -41,13 +43,14 @@ export default {
   },
   data() {
     return {
+      responseData:'',
       data: {
-        labels: ['Blue', 'Yellow', 'Red'],
+        labels: ['Occulus Rift/s', 'HTC Vive', 'Windows Mixed Reality', 'PSVR'],
         datasets: [
           {
-            label: 'My Pie Chart',
-            data: [300, 100, 50],
-            backgroundColor: [ '#36A2EB', '#FFCE56', '#FF6384'],
+            label: 'Nbr des sondés',
+            data: [150, 100, 50, 20],
+            backgroundColor: [ '#36A2EB', '#FFCE56', '#c9cbcf', '#FF6384'],
             hoverOffset: 4
           }
         ],
@@ -96,6 +99,20 @@ export default {
         }
       }
     }
+  },
+  methods:{
+    fetchData(id, answer) {
+      axios.get('http://127.0.0.1:8000/api/admin_statistical/'+id+'/'+answer)
+        .then(response => {
+          this.responseData = response.data.message;
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des données.', error);
+        });
+    },
+  },
+  mounted() {
+    this.fetchData(6, 'PSVR');
   }
 }
 </script>

@@ -55,7 +55,3 @@ export default {
   }
 }
 </script>
-
-<style>
-/* Ajoutez des styles personnalisés si nécessaire */
-</style>

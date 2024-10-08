@@ -4,14 +4,14 @@
             <img src="/src/assets/logo.png" alt="logo" width="200px">
             <h2 class="text-muted">Login</h2>
         </div>
-      <form class="mt-5" @submit.prevent="login">
+      <form class="mt-3" @submit.prevent="login">
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input v-model="email" type="email" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="exampleInputEmail1">Adresse Email</label>
+          <input v-model="email" type="email" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre email">
+          <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre adresse e-mail avec qui que ce soit.</small>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
+        <div class="form-group mt-3">
+          <label for="exampleInputPassword1">Mot De Passe</label>
           <input v-model="password"  type="password" class="form-control border-bottom mt-2 text-white" style="border:none; background-color: black" id="exampleInputPassword1" placeholder="Password">
         </div>
         <button type="submit" class="btn btn-primary mt-4 w-50 text-white rounded-pill fw-bold">Login</button>

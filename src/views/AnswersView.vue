@@ -48,22 +48,19 @@ export default {
     computed: {
         findDate() {
             if (this.responseData.length > 0) {
-                // Utilisez la date de la première réponse ou la date maximale
-                return this.responseData[0].date; // Ou utilisez une méthode pour trouver la date la plus récente
+                return this.responseData[0].date; // Méthode pour trouver la date
             }
             return 'Date non spécifiée'; // Gestion du cas où il n'y a pas de réponses
         },
         findVisitor(){
             if (this.responseData.length > 0) {
-                // Utilisez la date de la première réponse ou la date maximale
-                return this.responseData[0].visitor; // Ou utilisez une méthode pour trouver la date la plus récente
+                return this.responseData[0].visitor; // Méthode pour trouver le visiteur
             }
             return 'Date non spécifiée'; // Gestion du cas où il n'y a pas de réponses
         }
     },
     methods: {
         fetchData() {
-            // Utilisez la prop reference dans l'URL
             axios.get(`http://127.0.0.1:8000/api/answer/${this.reference}`)
                 .then(response => {
                     this.responseData = response.data.message;
@@ -90,12 +87,7 @@ export default {
         
     },
     mounted() {
-        // Appelez fetchData lorsque le composant est monté
         this.fetchData();
     }
 }
 </script>
-
-<style>
-    
-</style>

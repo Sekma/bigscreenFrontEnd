@@ -79,7 +79,7 @@ export default {
           this.responseData = response.data.message;
           // Initialiser formData pour chaque question
           this.responseData.forEach(item => {
-            this.$set(this.formData, item.id, ''); // S'assurez que chaque champ est initialisé
+            this.$set(this.formData, item.id, ''); // S'assurer que chaque champ est initialisé
           });
         })
         .catch(error => this.error = error);
@@ -88,7 +88,7 @@ export default {
     handleSubmit() {
     const payload = {
         visitor_email: this.formData[1], // L'email doit être le bon
-        answer: Object.values(this.formData).map(value => String(value)) // Assurez-vous que cela contient les bonnes réponses
+        answer: Object.values(this.formData).map(value => String(value)) // S'assurez que cela contient les bonnes réponses
     };
 
     console.log('Payload avant envoi :', payload); 
