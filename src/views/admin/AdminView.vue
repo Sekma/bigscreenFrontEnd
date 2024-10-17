@@ -3,19 +3,19 @@
     <h4 class="text-center p-2 text-decoration-underline">Les statistiques du sondage</h4>
     <div class="col-6 p-5">
       <p>Marques de casques VR utilisées par les sondés.</p>
-      <Pie v-if="dataPie_Q6.labels.length>0" class="shadow p-3" :data="dataPie_Q6" :options="options" />
+      <Pie v-if="dataPie_Q6.datasets[0].data.length>0" class="shadow p-3" :data="dataPie_Q6" :options="options" />
     </div>
     <div class="col-6 p-5">
       <p>Magasins d'applications utilisés pour l'achat de contenus VR.</p>
-      <Pie v-if="dataPie_Q7.labels.length>0" class="shadow p-3" :data="dataPie_Q7" :options="options" />
+      <Pie v-if="dataPie_Q7.datasets[0].data.length>0" class="shadow p-3" :data="dataPie_Q7" :options="options" />
     </div>
     <div class="col-6 p-5">
       <p>Utilisation principale de Bigscreen pour...</p>
-      <Pie v-if="dataPie_Q10.labels.length>0" class="shadow p-3" :data="dataPie_Q10" :options="options" />
+      <Pie v-if="dataPie_Q10.datasets[0].data.length>0" class="shadow p-3" :data="dataPie_Q10" :options="options" />
     </div>
     <div class="col-6 p-5">
       <p>Évaluation de la qualité d'image et audio sur Bigscreen</p>
-      <Radar class="shadow p-3" :data="dataRadar" :options="chartOptions" />
+      <Radar v-if="dataRadar.datasets[0].data.length>0 && dataRadar.datasets[1].data.length>0 " class="shadow p-3" :data="dataRadar" :options="chartOptions" />
     </div>
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       // graphique Q6
-      responseData_Q6:[],
+
       dataPie_Q6: {
         labels: [],
         datasets: [
@@ -59,7 +59,7 @@ export default {
       },
 
       // graphique Q7
-      responseData_Q7:[],
+      
       dataPie_Q7: {
         labels: [],
         datasets: [
@@ -74,7 +74,7 @@ export default {
       },
 
       // graphique Q10
-      responseData_Q10:[],
+    
       dataPie_Q10: {
         labels: [],
         datasets: [
@@ -89,17 +89,12 @@ export default {
       },
 
       // graphique radar
+
       dataRadar: {
-        labels: ['Eating',
-    'Drinking',
-    'Sleeping',
-    'Designing',
-    'Coding',
-    'Cycling',
-    'Running'],
+        labels: [],
         datasets: [
-          {label: 'My First Dataset',
-            data: [65, 59, 90, 81, 56, 55, 40],
+          {label: 'Image (Nbr des sondés)',
+            data: [],
             fill: true,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgb(255, 99, 132)',
@@ -108,8 +103,8 @@ export default {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgb(255, 99, 132)'
           }, {
-            label: 'My Second Dataset',
-            data: [28, 48, 40, 19, 96, 27, 100],
+            label: 'Audio (Nbr des sondés)',
+            data: [],
             fill: true,
             backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderColor: 'rgb(54, 162, 235)',
@@ -134,113 +129,88 @@ export default {
     }
   },
   methods:{
-    // method_Q6
-    fetchData_Q6() {
-      axios.get('http://127.0.0.1:8000/api/admin_statistical/6')
+    fetchDataPie(id, labels) {
+      axios.get('http://127.0.0.1:8000/api/admin_statistical/'+id)
         .then(response => {
-          this.responseData_Q6 = response.data.message;
+          this.responseData = response.data.message;
+          const result = {};
 
-          // Les labels a afficher
-        const labels = ['Occulus Rift/s', 'HTC Vive', 'Windows Mixed Reality', 'PSVR'];
-        const result = {};
+          // Initialiser tous les labels à 0
+          labels.forEach(label => {
+            result[label] = 0;
+          });
 
-        // initialiser tous les labels à 0
-        labels.forEach(label => {
-          result[label] = 0;
-        });
+          // Mettre à jour les answer_count selon le tableau responseData
+          this.responseData.forEach(item => {
+            if (result.hasOwnProperty(item.answer)) {
+              result[item.answer] = item.answer_count;
+            }
+          });
 
-        // Mettre à jour les answer_count selon le tableau responseData_Q6
-        this.responseData_Q6.forEach(item => {
-          if (result.hasOwnProperty(item.answer)) {
-            result[item.answer] = item.answer_count;
+          // Insérer les données dans le graphique
+          if (id === 6) {
+            this.dataPie_Q6.labels = labels;
+            this.dataPie_Q6.datasets[0].data = labels.map(label => result[label]);
+          } else if (id === 7) {
+            this.dataPie_Q7.labels = labels;
+            this.dataPie_Q7.datasets[0].data = labels.map(label => result[label]);
+          } else if (id === 10) {
+            this.dataPie_Q10.labels = labels;
+            this.dataPie_Q10.datasets[0].data = labels.map(label => result[label]);
           }
-        });
 
-        // insérer les données dans le graphique
-        this.dataPie_Q6.labels = labels;
-        this.dataPie_Q6.datasets[0].data = labels.map(label => result[label]);
-
-          
-         // this.data.labels = result.map(item => item.answer);
-         // this.data.datasets[0].data = this.responseData_Q6.map(item => item.answer_count);
-
-          console.log(result)
+  
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des données.', error);
         });
     },
 
-    // method_Q7
-    fetchData_Q7() {
-      axios.get('http://127.0.0.1:8000/api/admin_statistical/7')
+    
+    // method Radar
+    fetchDataRadar(id) {
+      axios.get('http://127.0.0.1:8000/api/admin_statistical/'+id)
         .then(response => {
-          this.responseData_Q7 = response.data.message;
+          const responseData = response.data.message;
 
-          // Les labels a afficher
-        const labels = ['SteamVR', 'Occulus store', 'Viveport', 'Playstation VR', 'Google Play', 'Windows store'];
-        const result = {};
+          // Les labels à afficher
+          const labels = ['0', '1', '2', '3', '4', '5'];
+          const result = {};
 
-        // initialiser tous les labels à 0
-        labels.forEach(label => {
-          result[label] = 0;
-        });
+          // Initialiser tous les labels à 0
+          labels.forEach(label => {
+            result[label] = 0;
+          });
 
-        // Mettre à jour les answer_count selon le tableau responseData_Q7
-        this.responseData_Q7.forEach(item => {
-          if (result.hasOwnProperty(item.answer)) {
-            result[item.answer] = item.answer_count;
-          }
-        });
+          // Mettre à jour les answer_count selon le tableau responseData
+          responseData.forEach(item => {
+            if (result.hasOwnProperty(item.answer)) {
+              result[item.answer] = item.answer_count;
+            }
+          });
 
-        // insérer les données dans le graphique
-        this.dataPie_Q7.labels = labels;
-        this.dataPie_Q7.datasets[0].data = labels.map(label => result[label]);
+      // Insérer les données dans le graphique
+      this.dataRadar.labels = labels;
 
-          console.log(result)
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des données.', error);
-        });
-    },
+      if (id === 11) {
+        this.dataRadar.datasets[0].data = labels.map(label => result[label]);
+      } else if (id === 15) {
+        this.dataRadar.datasets[1].data = labels.map(label => result[label]);
+      }
 
-    // method_Q10
-    fetchData_Q10() {
-      axios.get('http://127.0.0.1:8000/api/admin_statistical/10')
-        .then(response => {
-          this.responseData_Q10 = response.data.message;
+    })
+    .catch(error => {
+      console.error('Erreur lors de la récupération des données.', error);
+    });
+}
 
-          // Les labels a afficher
-        const labels = ['regarder des émissions TV en direct', 'regarder des films', 'jouer en solo', 'jouer en team'];
-        const result = {};
-
-        // initialiser tous les labels à 0
-        labels.forEach(label => {
-          result[label] = 0;
-        });
-
-        // Mettre à jour les answer_count selon le tableau responseData_Q10
-        this.responseData_Q10.forEach(item => {
-          if (result.hasOwnProperty(item.answer)) {
-            result[item.answer] = item.answer_count;
-          }
-        });
-
-        // insérer les données dans le graphique
-        this.dataPie_Q10.labels = labels;
-        this.dataPie_Q10.datasets[0].data = labels.map(label => result[label]);
-
-          console.log(result)
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des données.', error);
-        });
-    }
   },
   mounted() {
-   this.fetchData_Q6();
-   this.fetchData_Q7();
-   this.fetchData_Q10();
+   this.fetchDataPie(6, ['Occulus Rift/s', 'HTC Vive', 'Windows Mixed Reality', 'PSVR']);
+   this.fetchDataPie(7, ['SteamVR', 'Occulus store', 'Viveport', 'Playstation VR', 'Google Play', 'Windows store']);
+   this.fetchDataPie(10, ['regarder des émissions TV en direct', 'regarder des films', 'jouer en solo', 'jouer en team']);
+   this.fetchDataRadar(11);
+   this.fetchDataRadar(15);
   }
 }
 </script>
