@@ -21,3 +21,13 @@ Bigscreen Survey est une application web conçue pour collecter les retours d'ex
 ### la Partie des visiteurs:
 
 ### la Partie de l’Administration:
+
+## Fabriqué avec
+<div style="text-align: center;"> 
+    <img alt="VSCode" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg"> 
+    <img alt="Vue.js" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original.svg"> 
+    <img alt="JavaScript" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg"> 
+    <img alt="Bootstrap" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-original.svg"> 
+    <img alt="Chart.js" height="50" width="50" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/chartjs/chartjs-original.svg"> </div> <br> <hr>
+## Auteur
+Sekma Mohamed Hedi <a href="https://github.com/Sekma">@Sekma</a>
