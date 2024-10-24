@@ -13,4 +13,5 @@ Bigscreen Survey est une application web conçue pour collecter les retours d'ex
     <li>Framework Frontend : <strong>Vue.js</strong> - Choisi pour sa flexibilité et sa capacité à créer des interfaces utilisateur réactives.</li>
     <li>Framework CSS : <strong>Bootstrap</strong> - Pour un design réactif et un style facile.</li>
     <li>Intégration API : <strong>Axios</strong> - Pour effectuer des requêtes HTTP vers l'API backend.</li>
+    <li>Visualisation des données : <strong>Chart.js</strong> - Pour créer des graphiques interactifs et visuels des résultats du sondage.</li>
 </ul>
