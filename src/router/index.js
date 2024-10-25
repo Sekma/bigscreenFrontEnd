@@ -31,9 +31,9 @@ const router = createRouter({
       }
     },
     {
-      path: '/answer/:reference',  // Nouvelle route avec un paramètre
+      path: '/answer/:reference',  // route avec un paramètre
       name: 'answer',
-      component: AnswersView,  // Remplacez VarView par votre composant réel
+      component: AnswersView,
       props: true  // Cela permet de passer le paramètre comme prop au composant
     },
     {
@@ -43,7 +43,7 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      component: AdminLayout, // Utilisez le nouveau layout
+      component: AdminLayout, // Utiliser le layout
       meta: { requiresAuth: true },
       children: [
         {
