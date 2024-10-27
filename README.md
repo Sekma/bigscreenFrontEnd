@@ -34,13 +34,13 @@ Bigscreen Survey est une application web conçue pour collecter les retours d'ex
 ### Questionnaire
 
 <div display:inline-block>
-    <img src="https://github.com/Sekma/bigscreenFrontEnd/blob/main/wireframe/survey.jpeg" width="45%" alt="">
+    <img src="https://github.com/Sekma/bigscreenFrontEnd/blob/main/wireframe/survey.jpeg" width="90%" alt="">
 </div><br><br>
 
 ### Réponse
 
 <div display:inline-block>
-    <img src="https://github.com/Sekma/bigscreenFrontEnd/blob/main/wireframe/answer.jpeg" width="45%" alt="">
+    <img src="https://github.com/Sekma/bigscreenFrontEnd/blob/main/wireframe/answer.jpeg" width="90%" alt="">
 </div><br><br>
 
 ### la Partie de l’Administration:
